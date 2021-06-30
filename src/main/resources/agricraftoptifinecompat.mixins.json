@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "xyz.starmun.agricraftoptifinecompat.mixin",
+  "refmap": "agricraftoptifinecompat.refmap.json",
+  "mixins": [
+    "DynamicCameraMixin",
+    "BlockRendererDispatcherMixin",
+    "FluidBlockRendererMixin",
+    "InfFluidRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
