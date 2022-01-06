@@ -2,22 +2,23 @@ buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
         maven { url = "https://repo.spongepowered.org/maven" }
+        maven { url = "https://plugins.gradle.org/m2/" }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
     }
 }
+
+apply plugin: "com.matthewprenger.cursegradle"
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '0.0.1'
-group = 'xyz.starmun.agricraftoptifinecompat' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'agricraftoptifinecompat'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
@@ -136,7 +137,8 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
+
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compile 'org.spongepowered:mixin:0.8'
     annotationProcessor 'org.spongepowered:mixin:0.8:processor'
     implementation fg.deobf("curse.maven:infinitylib-251396:3367362")
@@ -176,16 +178,16 @@ jar {
 
     manifest {
         attributes([
-            "Specification-Title": "agricraftoptifinecompat",
+            "Specification-Title": "${archives_base_name}",
             "Specification-Vendor": "starmun",
             "Specification-Version": "1", // We are version 1 of ourselves
-            "Implementation-Title": "agricraftoptifinecompat",
+            "Implementation-Title": "${archives_base_name}",
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"starmun",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
            // "TweakOrder": "0",
-            "MixinConfigs": "agricraftoptifinecompat.mixins.json"
+            "MixinConfigs": "${archives_base_name}.mixins.json"
         ])
     }
 }
@@ -210,4 +212,23 @@ publishing {
 }
 mixin {
     add sourceSets.main, "agricraftoptifinecompat.refmap.json"
+}
+
+if(System.getenv('CURSE_DEPLOY')) {
+    curseforge {
+        apiKey = System.getenv('CURSE_DEPLOY')
+        //noinspection GroovyAssignabilityCheck
+        project {
+            id = project.curseforge_id
+            releaseType = "${release_type}"
+            addGameVersion "Forge"
+            addGameVersion "${minecraft_version}"
+            addGameVersion "${java_version}"
+            mainArtifact(jar){
+                displayName = "${archivesBaseName}-${minecraft_version}-${mod_version}"
+            }
+            changelog = new File("${rootDir.toPath()}/changelog.md").text
+            changelogType = 'markdown'
+        }
+    }
 }
