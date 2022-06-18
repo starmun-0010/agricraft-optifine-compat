@@ -15,11 +15,11 @@ import xyz.starmun.agricraftoptifinecompat.contracts.InfFluidRendererExtensions;
 @Mixin(BlockRendererDispatcher.class)
 public class BlockRendererDispatcherMixin {
     @Shadow
-    private FluidBlockRenderer fluidRenderer;
+    private FluidBlockRenderer liquidBlockRenderer;
     @Inject(method = "onResourceManagerReload", at=@At("TAIL"))
     public void onResourceManagerReload(IResourceManager resourceManager, CallbackInfo ci) {
-        if(fluidRenderer instanceof InfFluidRenderer){
-            ((InfFluidRendererExtensions)fluidRenderer).aoc$initPreviousAtlasSprites();
+        if(liquidBlockRenderer instanceof InfFluidRenderer){
+            ((InfFluidRendererExtensions)liquidBlockRenderer).aoc$initPreviousAtlasSprites();
         }
     }
 }

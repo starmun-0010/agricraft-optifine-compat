@@ -11,7 +11,7 @@ public class DynamicCameraRenderer extends EntityRenderer<DynamicCamera> {
     }
 
     @Override
-    public ResourceLocation getEntityTexture(DynamicCamera entity) {
+    public ResourceLocation getTextureLocation(DynamicCamera p_110775_1_) {
         return null;
     }
 }

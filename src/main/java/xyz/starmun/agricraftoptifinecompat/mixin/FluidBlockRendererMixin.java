@@ -9,10 +9,11 @@ import xyz.starmun.agricraftoptifinecompat.contracts.IFluidBlockRendererExtensio
 public class FluidBlockRendererMixin implements IFluidBlockRendererExtensions {
 
     @Shadow
-    protected void initAtlasSprites(){}
+    protected void setupSprites(){}
+
 
     @Override
     public void aoc$initAtlasSprites() {
-        this.initAtlasSprites();
+        this.setupSprites();
     }
 }

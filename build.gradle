@@ -36,10 +36,10 @@ minecraft {
     //
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-       mappings channel: 'snapshot', version: '20210309-1.16.5'
+       mappings channel: 'official', version: '1.16.5'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -141,8 +141,8 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compile 'org.spongepowered:mixin:0.8'
     annotationProcessor 'org.spongepowered:mixin:0.8:processor'
-    implementation fg.deobf("curse.maven:infinitylib-251396:3367362")
-    implementation fg.deobf("curse.maven:agricraft-225635:3367363")
+    implementation fg.deobf("curse.maven:infinitylib-251396:3539825")
+    implementation fg.deobf("curse.maven:agricraft-225635:3809887")
     compileOnly fg.deobf("libs:OptiFine:1.16.5")
 
 
