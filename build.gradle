@@ -225,7 +225,7 @@ if(System.getenv('CURSE_DEPLOY')) {
             addGameVersion "${minecraft_version}"
             addGameVersion "${java_version}"
             mainArtifact(jar){
-                displayName = "${archivesBaseName}-${minecraft_version}-${mod_version}"
+                displayName = "${archives_base_name}-${minecraft_version}-${mod_version}"
             }
             changelog = new File("${rootDir.toPath()}/changelog.md").text
             changelogType = 'markdown'
