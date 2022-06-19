@@ -1,11 +1,11 @@
 package xyz.starmun.agricraftoptifinecompat.mixin;
 
-import net.minecraft.client.renderer.FluidBlockRenderer;
+import net.minecraft.client.renderer.block.LiquidBlockRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import xyz.starmun.agricraftoptifinecompat.contracts.IFluidBlockRendererExtensions;
 
-@Mixin(FluidBlockRenderer.class)
+@Mixin(LiquidBlockRenderer.class)
 public class FluidBlockRendererMixin implements IFluidBlockRendererExtensions {
 
     @Shadow

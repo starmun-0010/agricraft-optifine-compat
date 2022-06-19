@@ -2,11 +2,11 @@ package xyz.starmun.agricraftoptifinecompat.renderer;
 
 import com.infinityraider.infinitylib.modules.dynamiccamera.DynamicCamera;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
 
 public class DynamicCameraRenderer extends EntityRenderer<DynamicCamera> {
-    public DynamicCameraRenderer(EntityRendererManager renderManager) {
+    public DynamicCameraRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager);
     }
 

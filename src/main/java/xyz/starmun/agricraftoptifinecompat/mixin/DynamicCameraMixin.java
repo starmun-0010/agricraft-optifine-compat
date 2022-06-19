@@ -2,7 +2,9 @@ package xyz.starmun.agricraftoptifinecompat.mixin;
 
 import com.infinityraider.infinitylib.modules.dynamiccamera.DynamicCamera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityType;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.entity.EntityType;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,8 +21,7 @@ public class DynamicCameraMixin {
 
     @Inject(method = "getInstance", at=@At(value = "FIELD", target = "Lcom/infinityraider/infinitylib/modules/dynamiccamera/DynamicCamera;INSTANCE:Lcom/infinityraider/infinitylib/modules/dynamiccamera/DynamicCamera;", shift = At.Shift.AFTER, opcode = Opcodes.PUTSTATIC ))
     private static void getInstance(CallbackInfoReturnable<DynamicCamera> cir){
-        Minecraft.getInstance().getEntityRenderDispatcher()
-                .register((EntityType<DynamicCamera>)INSTANCE.getType(),
-                        new DynamicCameraRenderer(Minecraft.getInstance().getEntityRenderDispatcher()));
+        EntityRenderers.register((EntityType<DynamicCamera>) INSTANCE.getType(), DynamicCameraRenderer::new);
+        Minecraft.getInstance().getEntityRenderDispatcher().onResourceManagerReload(ResourceManager.Empty.INSTANCE);
     }
 }
