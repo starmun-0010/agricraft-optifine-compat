@@ -14,17 +14,11 @@ import static xyz.starmun.agricraftoptifinecompat.AgricraftOptifineCompat.MOD_ID
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MOD_ID)
-@Mod.EventBusSubscriber(modid = AgricraftOptifineCompat.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class AgricraftOptifineCompat {
     public static final Logger LOGGER = LogManager.getLogger("Agricraft Optifine Compat");
     public static final String MOD_ID = "agricraftoptifinecompat";
 
     public AgricraftOptifineCompat() {
         ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> NetworkConstants.IGNORESERVERONLY, (a, b) -> true));
-    }
-
-    @SubscribeEvent
-    public static void registerRenderers(EntityRenderersEvent.AddLayers e) {
-
     }
 }
